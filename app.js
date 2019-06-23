@@ -3,12 +3,8 @@ import morgan from "morgan";
 import helmet from "helmet";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
-
+import { userRouter } from "./router";
 const app = express();
-
-const PORT = 4000;
-//arrow function
-const handleListening = () => console.log(`Listening on : http://localhost:${PORT}`);
 
 const handleHome = (req, res) => res.send("Hello from home");
 
@@ -27,4 +23,6 @@ app.get("/", handleHome);
 
 app.get("/profile", handleProfile);
 
-app.listen(PORT, handleListening);
+app.use("/user", userRouter);
+//누가 이걸 임포트 할때 app object를 가져간다
+export default app;
