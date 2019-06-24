@@ -9,6 +9,8 @@ import globalRouter from "./routers/globalRouter";
 import routes from "./routes";
 const app = express();
 
+app.set("view engine", "pug");
+
 app.use(cookieParser());
 //bodyparser -> 서버가 데이터 형식을 이해 하도록 돕는 것
 app.use(bodyParser.json());
