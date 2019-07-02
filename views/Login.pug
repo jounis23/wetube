@@ -2,7 +2,7 @@ extends layouts/main
 
 block content
     .form__container
-        form(action= "/login", method = "post")
+        form(action= routes.login, method = "post")
             input(type = "email", naem= "email", placeholder = "Email")
             input(type = "password", naem= "password", placeholder = "Password")
             input(type = "submit", value = "Log In")
