@@ -8,7 +8,7 @@ export const search = (req,res) =>{
     const{
         query: {term : searchingBy}
     } = req;
-    res.render("Search" , {pageTitle: "Search", searchingBy});
+    res.render("Search" , {pageTitle: "Search", searchingBy, videos});
 }
  
 
