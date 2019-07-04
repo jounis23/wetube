@@ -1,4 +1,5 @@
 import {videos} from "../db"
+import routes from "../routes"
 export const home = (req, res) => {
     res.render("Home", {pageTitle: "Home", videos});
 };
@@ -12,7 +13,13 @@ export const search = (req,res) =>{
 }
  
 
-export const upload = (req, res) => res.render("Upload" , {pageTitle: "Upload"});
+export const getUpload = (req, res) => res.render("Upload" , {pageTitle: "Upload"});
+export const postUpload = (req, res) =>{
+    const{
+        body: {file, title, description}
+    }=req;
+    res.redirect(routes.videoDetail(32156));
+};
 export const videoDetail = (req, res) => res.render("VideoDetail" , {pageTitle: "Video Detail"});
 export const editVideo = (req, res) => res.render("EditVideo" , {pageTitle: "Edit Video"});
 export const deleteVideo = (req, res) => res.render("DeleteVideo" , {pageTitle: "Delete Video"});
