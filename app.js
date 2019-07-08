@@ -10,10 +10,9 @@ import globalRouter from "./routers/globalRouter";
 import routes from "./routes";
 const app = express();
 
-app.set("view engine", "pug");
-
-//helmet -> 보안 그냥 쓰면 좋음
 app.use(helmet());
+app.set("view engine", "pug");
+app.use("/uploads", express.static("uploads"));
 app.use(cookieParser());
 //bodyparser -> 서버가 데이터 형식을 이해 하도록 돕는 것
 app.use(bodyParser.json());
