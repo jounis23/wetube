@@ -7,20 +7,21 @@ import { localsMiddleware } from "./middlewares";
 import userRouter from "./routers/userRouter";
 import videoRouter from "./routers/videoRouter";
 import globalRouter from "./routers/globalRouter";
+
 import routes from "./routes";
 const app = express();
 
 app.use(helmet());
 app.set("view engine", "pug");
 app.use("/uploads", express.static("uploads"));
+app.use("/static", express.static("static"));
 app.use(cookieParser());
 //bodyparser -> 서버가 데이터 형식을 이해 하도록 돕는 것
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 //morgan -> 로그를 띄어줘서 여러가지 정보를 제공
 app.use(morgan("dev"));
 app.use(localsMiddleware);
-
 
 app.use(routes.home, globalRouter);
 app.use(routes.users, userRouter);
