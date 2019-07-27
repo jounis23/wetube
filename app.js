@@ -1,4 +1,3 @@
-import dotenv from "dotenv";
 import express from "express";
 import morgan from "morgan";
 import helmet from "helmet";
@@ -15,9 +14,8 @@ import videoRouter from "./routers/videoRouter";
 import globalRouter from "./routers/globalRouter";
 import "./passport";
 
-dotenv.config();
 const app = express();
-
+console.log(process.env.COOKIE_SECRET);
 const CookieStore = MongoStore(session);
 
 app.use(helmet());
