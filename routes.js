@@ -12,6 +12,7 @@ const USERS = "/users";
 const USER_DETAIL = "/:id";
 const EDIT_PROFILE = "/edit-profile";
 const CHANGE_PASSWORD = "/change-password";
+const ME = "/me";
 
 // Videos
 
@@ -24,6 +25,8 @@ const DELETE_VIDEO = "/:id/delete";
 const GITHUB = "/auth/github";
 const GITHUB_CALLBACK = "/auth/github/callback";
 
+const FACEBOOK = "/auth/facebook";
+const FACEBOOK_CALLBACK = "/auth/facebook/callback";
 const routes = {
   home: HOME,
   join: JOIN,
@@ -64,7 +67,12 @@ const routes = {
     }
   },
   gitHub: GITHUB,
-  githubCallback: GITHUB_CALLBACK
+  githubCallback: GITHUB_CALLBACK,
+
+  faceBook: FACEBOOK,
+  faceBookCallback: FACEBOOK_CALLBACK,
+
+  me: ME
 };
 
 export default routes;

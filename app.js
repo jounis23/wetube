@@ -15,7 +15,7 @@ import globalRouter from "./routers/globalRouter";
 import "./passport";
 
 const app = express();
-console.log(process.env.COOKIE_SECRET);
+
 const CookieStore = MongoStore(session);
 
 app.use(helmet());

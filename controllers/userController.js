@@ -5,14 +5,14 @@ import User from "../models/User";
 export const getJoin = (req, res) => {
   res.render("Join", { pageTitle: "Join" });
 };
+
 export const postJoin = async (req, res, next) => {
   const {
     body: { name, email, password, password2 }
   } = req;
-
   if (password !== password2) {
     res.status(400);
-    res.render("Join", { pageTitle: "Join" });
+    res.render("join", { pageTitle: "Join" });
   } else {
     try {
       const user = await User({
@@ -54,7 +54,7 @@ export const githubLoginCallback = async (_, __, profile, cb) => {
       githubId: id,
       avatarUrl: avatar_url
     });
-    return cb(null, user);
+    return cb(null, newUser);
   } catch (error) {
     return cb(error);
   }
@@ -64,14 +64,32 @@ export const postGithubLogIn = (req, res) => {
   res.redirect(routes.home);
 };
 
+export const facebookLogin = passport.authenticate("facebook");
+export const facebookLoginCallback = async (
+  accessToken,
+  refreshToken,
+  profile,
+  done
+) => {
+  console.log(accessToken, refreshToken, profile, done);
+};
+export const postFacebookLogIn = (req, res) => {
+  res.redirect(routes.home);
+};
+
 export const logout = (req, res) => {
   req.logout();
   res.redirect(routes.home);
 };
+export const getMe = (req, res) => {
+  console.log(req.user);
+  res.render("userDetail", { pageTitle: "User Detail", user: req.user });
+};
 
 export const users = (req, res) => res.render("Users", { pageTitle: "Users" });
-export const userDetail = (req, res) =>
+export const userDetail = (req, res) => {
   res.render("UserDetail", { pageTitle: "UserDetail" });
+};
 export const editProfile = (req, res) =>
   res.render("EditProfile", { pageTitle: "Edit Profile" });
 export const changePassword = (req, res) =>
