@@ -39,7 +39,7 @@ export const postLogin = passport.authenticate("local", {
 export const githubLogin = passport.authenticate("github");
 export const githubLoginCallback = async (_, __, profile, cb) => {
   const {
-    _json: { id, avatar_url, name, email }
+    _json: { id, avatar_url: avatarUrl, name, email }
   } = profile;
   try {
     const user = await User.findOne({ email });
@@ -52,7 +52,7 @@ export const githubLoginCallback = async (_, __, profile, cb) => {
       email,
       name,
       githubId: id,
-      avatarUrl: avatar_url
+      avatarUrl
     });
     return cb(null, newUser);
   } catch (error) {
@@ -105,7 +105,23 @@ export const users = (req, res) => res.render("Users", { pageTitle: "Users" });
 export const userDetail = (req, res) => {
   res.render("UserDetail", { pageTitle: "UserDetail" });
 };
-export const editProfile = (req, res) =>
+export const getEditProfile = (req, res) =>
   res.render("EditProfile", { pageTitle: "Edit Profile" });
+export const postEditProfile = async (req, res) => {
+  const {
+    body: { name, email },
+    file
+  } = req;
+  try {
+    await User.findByIdAndUpdate(req.user.id, {
+      name,
+      email,
+      avatarUrl: file ? file.path : req.user.avatarUrl
+    });
+    res.redirect(routes.me);
+  } catch (error) {
+    res.redirect("editProfile", { pageTitle: "Edit Profile" });
+  }
+};
 export const changePassword = (req, res) =>
   res.render("ChangePassword", { pageTitle: "Change Password" });
