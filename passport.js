@@ -28,7 +28,9 @@ passport.use(
     {
       clientID: process.env.FB_ID,
       clientSecret: process.env.FB_SECRET,
-      callbackURL: `http://localhost:4000${routes.faceBookCallback}`
+      callbackURL: `http://localhost:4000${routes.faceBookCallback}`,
+      profileFields: ["id", "displayName", "photos", "email"],
+      scope: ["public_profile", "email"]
     },
     facebookLoginCallback
   )
@@ -36,5 +38,3 @@ passport.use(
 
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
-//passport.serializeUser((user, done) => done(null, user));
-//passport.deserializeUser((user, done) => done(null, user));

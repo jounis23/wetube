@@ -102,8 +102,16 @@ export const getMe = (req, res) => {
 };
 
 export const users = (req, res) => res.render("Users", { pageTitle: "Users" });
-export const userDetail = (req, res) => {
-  res.render("UserDetail", { pageTitle: "UserDetail" });
+export const userDetail = async (req, res) => {
+  const {
+    params: { id }
+  } = req;
+  try {
+    const user = await User.findById(id);
+    res.render("userDetail", { pageTitle: "User Detail", user });
+  } catch (error) {
+    res.redirect(routes.home);
+  }
 };
 export const getEditProfile = (req, res) =>
   res.render("EditProfile", { pageTitle: "Edit Profile" });
@@ -120,8 +128,26 @@ export const postEditProfile = async (req, res) => {
     });
     res.redirect(routes.me);
   } catch (error) {
-    res.redirect("editProfile", { pageTitle: "Edit Profile" });
+    res.redirect(routes.editProfile);
   }
 };
-export const changePassword = (req, res) =>
+export const getChangePassword = (req, res) => {
   res.render("ChangePassword", { pageTitle: "Change Password" });
+};
+export const postChangePassword = async (req, res) => {
+  const {
+    body: { oldPassword, newPassword, newPassword1 }
+  } = req;
+  try {
+    if (newPassword !== newPassword1) {
+      res.status(400);
+      res.redirect(routes.changePassword);
+      return;
+    }
+    await req.user.changePassword(oldPassword, newPassword);
+    res.redirect(routes.me);
+  } catch (error) {
+    res.status(400);
+    res.redirect(routes.changePassword);
+  }
+};

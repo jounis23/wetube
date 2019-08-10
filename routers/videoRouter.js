@@ -9,6 +9,7 @@ import {
   postEditVideo
 } from "../controllers/videoController";
 import { uploadVideo, onlyPrivate } from "../middlewares";
+
 const videoRouter = express.Router();
 
 videoRouter.get(routes.upload, onlyPrivate, getUpload);
